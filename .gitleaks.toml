@@ -1,0 +1,11 @@
+title = "DevSecOps Security Platform - Secret Detection"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "lab-demo-token"
+description = "Detect synthetic security lab tokens"
+regex = '''LAB_DEMO_TOKEN_[A-Z0-9]{16}'''
+keywords = ["LAB_DEMO_TOKEN_"]
+tags = ["lab", "secret", "testing"]

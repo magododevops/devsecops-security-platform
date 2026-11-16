@@ -1,0 +1,17 @@
+rules:
+  - id: python-dangerous-eval
+    languages:
+      - python
+    severity: ERROR
+    message: >-
+      Avoid eval(). Evaluating dynamic expressions can
+      introduce code execution vulnerabilities when
+      untrusted input reaches this function.
+    metadata:
+      category: security
+      technology:
+        - python
+      cwe:
+        - "CWE-95"
+    patterns:
+      - pattern: eval(...)
