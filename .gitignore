@@ -1,0 +1,40 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node.js
+node_modules/
+.next/
+dist/
+coverage/
+
+# Java
+target/
+build/
+.gradle/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Temporary files
+tmp/
+.cache/
+*.log
+
+# Local reports
+reports/
+artifacts/
