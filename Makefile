@@ -30,3 +30,22 @@ policy-test:
 		-v "$(CURDIR)/tests/policies:/tests:ro" \
 		openpolicyagent/opa:1.22.4 \
 		test -v /policies /tests
+
+.PHONY: go-test go-build go-scan
+
+go-test:
+	@docker run --rm \
+		-v "$(CURDIR)/apps/vulnerable-go-api:/src:ro" \
+		-w /src \
+		golang:1.25-alpine \
+		go test -v ./...
+
+go-build:
+	@docker build \
+		-t devsecops-go-api:lab \
+		apps/vulnerable-go-api
+
+go-scan:
+	@REPORT_NAME=go-image \
+		bash scripts/security/trivy-scan.sh \
+		image devsecops-go-api:lab
