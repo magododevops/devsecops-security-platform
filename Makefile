@@ -175,3 +175,15 @@ api-regression: go-build
 
 security-pipeline:
 	@bash scripts/security/security-pipeline.sh
+
+# --------------------------------------------------
+# Evidence Validation
+# --------------------------------------------------
+
+.PHONY: evidence-test
+
+evidence-test:
+	@python3 -m unittest discover \
+		-s tests/integration \
+		-p 'test_evidence_validation.py' \
+		-v

@@ -69,7 +69,14 @@ cp reports/zap/zap-api.json \
     "$RUN_DIR/zap-api.json"
 
 echo
-echo "=== 5. NORMALIZE ZAP ==="
+echo "=== 5. VALIDATE RAW EVIDENCE ==="
+
+python3 scripts/security/validate-evidence.py \
+    "$RUN_DIR/trivy-image.json" \
+    "$RUN_DIR/zap-api.json"
+
+echo
+echo "=== 6. NORMALIZE ZAP ==="
 
 python3 scripts/security/normalize-zap.py \
     "$RUN_DIR/zap-api.json" \
