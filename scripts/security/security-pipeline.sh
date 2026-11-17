@@ -76,7 +76,13 @@ python3 scripts/security/validate-evidence.py \
     "$RUN_DIR/zap-api.json"
 
 echo
-echo "=== 6. NORMALIZE ZAP ==="
+echo "=== 6. VERIFY IMAGE IDENTITY ==="
+
+python3 scripts/security/audit-evidence.py \
+    --trivy "$RUN_DIR/trivy-image.json"
+
+echo
+echo "=== 7. NORMALIZE ZAP ==="
 
 python3 scripts/security/normalize-zap.py \
     "$RUN_DIR/zap-api.json" \
@@ -95,10 +101,26 @@ echo "=== 7. OPA SECURITY GATE ==="
 
 if make opa-gate \
     REPORT="$RUN_DIR/unified-evidence.json"; then
-    echo "[PASS] Artifact approved by security policy"
+    DECISION="ALLOW"
 else
+    DECISION="DENY"
+fi
+
+echo
+echo "=== 8. WRITE AUDIT MANIFEST ==="
+
+python3 scripts/security/audit-evidence.py \
+    --trivy "$RUN_DIR/trivy-image.json" \
+    --zap "$RUN_DIR/zap-api.json" \
+    --unified "$RUN_DIR/unified-evidence.json" \
+    --decision "$DECISION" \
+    --output "$RUN_DIR/manifest.json"
+
+echo "[INFO] Decision: $DECISION"
+echo "[INFO] Evidence: $RUN_DIR"
+
+if [[ "$DECISION" != "ALLOW" ]]; then
     echo "[DENY] Artifact blocked by security policy"
-    echo "[INFO] Evidence: $RUN_DIR"
     exit 1
 fi
 
