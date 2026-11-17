@@ -1,6 +1,7 @@
 package httpapi
 
 import (
+    "os"
     "encoding/json"
     "net/http"
     "strings"
@@ -42,6 +43,10 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func echoHandler(w http.ResponseWriter, r *http.Request) {
+    if os.Getenv("LAB_INSECURE_HEADERS") == "1" {
+        w.Header().Set("X-Powered-By", "DevSecOpsLab/0.1")
+    }
+
     message := r.URL.Query().Get("message")
 
     if len(message) > 256 {

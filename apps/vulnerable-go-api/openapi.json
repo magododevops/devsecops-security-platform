@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DevSecOps Go Security Lab",
+    "version": "1.0.0",
+    "description": "Isolated API for authorized security testing."
+  },
+  "servers": [
+    {
+      "url": "http://go-api:8080"
+    }
+  ],
+  "paths": {
+    "/healthz": {
+      "get": {
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Application is healthy"
+          }
+        }
+      }
+    },
+    "/api/echo": {
+      "get": {
+        "operationId": "getEcho",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 256,
+              "example": "hello"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Echo response"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/items/{id}": {
+      "get": {
+        "operationId": "getItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 64,
+              "example": "42"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item response"
+          },
+          "400": {
+            "description": "Invalid ID"
+          }
+        }
+      }
+    }
+  }
+}

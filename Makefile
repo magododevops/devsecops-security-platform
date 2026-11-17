@@ -49,3 +49,8 @@ go-scan:
 	@REPORT_NAME=go-image \
 		bash scripts/security/trivy-scan.sh \
 		image devsecops-go-api:lab
+
+.PHONY: dast-regression-test
+
+dast-regression-test:
+	@python3 tests/integration/validate_zap_regression.py
