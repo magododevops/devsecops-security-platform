@@ -148,3 +148,12 @@ lab-clean:
 		2>/dev/null || true
 	@echo "[OK] Known lab containers stopped"
 	@echo "[INFO] Security reports were preserved"
+
+# --------------------------------------------------
+# API Security Regression
+# --------------------------------------------------
+
+.PHONY: api-security-test
+
+api-security-test: go-build
+	@bash tests/integration/test-bola-http.sh
