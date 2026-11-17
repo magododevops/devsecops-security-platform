@@ -3,6 +3,10 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
+# Reports are gitignored, so the directory may not
+# exist on a fresh GitHub Actions runner.
+mkdir -p reports/pipeline
+
 RUN_DIR="$(mktemp -d reports/pipeline/run-XXXXXXXX)"
 
 echo "========================================"
