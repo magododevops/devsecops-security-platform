@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 RISK_LEVELS = {
-    "0": "UNKNOWN",
+    "0": "INFO",
     "1": "LOW",
     "2": "MEDIUM",
     "3": "HIGH",
@@ -51,6 +51,11 @@ def normalize(report: dict) -> dict:
                 or risk not in RISK_LEVELS
             ):
                 raise ValueError("Invalid alert metadata")
+
+            # Informational observations are retained in the raw
+            # ZAP report but excluded from blocking findings.
+            if risk == "0":
+                continue
 
             findings.append({
                 "id": f"ZAP-{rule_id}",

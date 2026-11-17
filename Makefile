@@ -166,3 +166,12 @@ mass-assignment-test: go-build
 api-regression: go-build
 	@bash tests/integration/test-bola-http.sh
 	@bash tests/integration/test-mass-assignment-http.sh
+
+# --------------------------------------------------
+# Unified Local Security Pipeline
+# --------------------------------------------------
+
+.PHONY: security-pipeline
+
+security-pipeline:
+	@bash scripts/security/security-pipeline.sh
