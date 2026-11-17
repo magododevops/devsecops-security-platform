@@ -45,3 +45,33 @@ test_deny_failed_scan if {
         "findings": [],
     }
 }
+
+test_allow_zap_low_risk if {
+    gate.allow with input as {
+        "scan_status": "success",
+        "findings_complete": true,
+        "findings": [
+            {"id": "ZAP-10037", "severity": "LOW"},
+        ],
+    }
+}
+
+test_deny_zap_high_risk if {
+    not gate.allow with input as {
+        "scan_status": "success",
+        "findings_complete": true,
+        "findings": [
+            {"id": "ZAP-40012", "severity": "HIGH"},
+        ],
+    }
+}
+
+test_deny_invalid_zap_severity if {
+    not gate.allow with input as {
+        "scan_status": "success",
+        "findings_complete": true,
+        "findings": [
+            {"id": "ZAP-10037", "severity": "INVALID"},
+        ],
+    }
+}

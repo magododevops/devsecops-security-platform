@@ -54,3 +54,8 @@ go-scan:
 
 dast-regression-test:
 	@python3 tests/integration/validate_zap_regression.py
+
+.PHONY: dast-gate-test
+
+dast-gate-test:
+	@bash scripts/security/validate-dast-gate.sh
