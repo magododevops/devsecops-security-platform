@@ -3,7 +3,7 @@
 APP_DIR := apps/vulnerable-go-api
 APP_IMAGE := devsecops-go-api:lab
 OPA_IMAGE := openpolicyagent/opa:1.22.4
-GO_IMAGE := golang:1.25-alpine
+GO_IMAGE := golang:1.27.4-alpine
 
 .PHONY: help setup check test security-check \
         gitleaks semgrep \
