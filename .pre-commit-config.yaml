@@ -19,4 +19,4 @@ repos:
           - security/rules
           - --error
           - --skip-unknown-extensions
-        files: \.(py|js|jsx|ts|tsx|java)$
+        files: \.(py|js|jsx|ts|tsx|java|go)$

@@ -1,0 +1,18 @@
+rules:
+  - id: go-shell-command
+    languages:
+      - go
+    severity: ERROR
+    message: >-
+      Avoid executing shell commands with sh -c or bash -c.
+      Untrusted input may lead to command injection.
+      Prefer direct execution with explicit arguments.
+    metadata:
+      category: security
+      cwe:
+        - "CWE-78"
+      technology:
+        - go
+    pattern-either:
+      - pattern: exec.Command("sh", "-c", ...)
+      - pattern: exec.Command("bash", "-c", ...)
