@@ -27,11 +27,19 @@ Policy as Code, and software supply chain security.
 | Vulnerability Management | DefectDojo OSS |
 | Runtime | Docker Compose |
 
-## Sample Applications
+## Laboratory Application
 
-- Java / Spring Boot
-- TypeScript / Next.js
-- Python / FastAPI
+The platform uses a single Go application as its primary
+security testing target.
+
+The application will contain controlled vulnerabilities
+to demonstrate detection, remediation, and security gates.
+
+Python, Bash, and Rego are used for platform automation
+and policies, not as additional application stacks.
+
+See [ADR-0002](docs/adr/0002-single-lab-application.md)
+for the architectural rationale.
 
 ## Project Status
 

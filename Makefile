@@ -21,3 +21,12 @@ security-iac:
 
 security-image:
 	@bash scripts/security/trivy-scan.sh image devsecops-secure-demo:lab
+
+.PHONY: policy-test
+
+policy-test:
+	@docker run --rm \
+		-v "$(CURDIR)/security/policies:/policies:ro" \
+		-v "$(CURDIR)/tests/policies:/tests:ro" \
+		openpolicyagent/opa:1.22.4 \
+		test -v /policies /tests
