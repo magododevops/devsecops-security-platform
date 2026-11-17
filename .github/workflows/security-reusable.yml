@@ -61,6 +61,13 @@ jobs:
           command -v trivy
           trivy --version
 
+      - name: Prepare ZAP report directory
+        if: ${{ inputs.run_full_pipeline }}
+        run: |
+          mkdir -p reports/zap
+          chmod 1777 reports/zap
+          stat -c '%a %n' reports/zap
+
       - name: Run complete security pipeline
         if: ${{ inputs.run_full_pipeline }}
         run: make security-pipeline
