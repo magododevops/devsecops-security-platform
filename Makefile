@@ -157,3 +157,12 @@ lab-clean:
 
 api-security-test: go-build
 	@bash tests/integration/test-bola-http.sh
+
+.PHONY: mass-assignment-test api-regression
+
+mass-assignment-test: go-build
+	@bash tests/integration/test-mass-assignment-http.sh
+
+api-regression: go-build
+	@bash tests/integration/test-bola-http.sh
+	@bash tests/integration/test-mass-assignment-http.sh

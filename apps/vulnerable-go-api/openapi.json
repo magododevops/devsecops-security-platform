@@ -70,6 +70,93 @@
           }
         }
       }
+    },
+    "/v1/work-orders/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": "WO-1001"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "getWorkOrder",
+        "security": [
+          {
+            "LabBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Work order"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateWorkOrder",
+        "security": [
+          {
+            "LabBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "open",
+                      "in_progress",
+                      "closed"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Work order updated"
+          },
+          "400": {
+            "description": "Invalid payload"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "LabBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Synthetic lab identities only. Not production authentication."
+      }
     }
   }
 }
