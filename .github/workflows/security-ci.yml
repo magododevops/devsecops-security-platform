@@ -2,11 +2,26 @@ name: Security CI
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Security validation mode
+        required: true
+        type: choice
+        default: fast
+        options:
+          - fast
+          - full
 
 permissions:
   contents: read
+
+concurrency:
+  group: security-ci-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   security:
     name: Security Validation
     uses: ./.github/workflows/security-reusable.yml
+    with:
+      run_full_pipeline: ${{ inputs.mode == 'full' }}
