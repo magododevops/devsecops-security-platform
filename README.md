@@ -56,3 +56,29 @@ must only run in isolated, authorized environments.
 
 Do not commit real credentials or expose vulnerable
 lab services to public networks.
+
+## Local Development Commands
+
+The root Makefile provides a consistent interface for
+application testing, security scanning, and policy validation.
+
+| Command | Purpose |
+|---|---|
+| `make setup` | Configure local security hooks |
+| `make check` | Run fast local security and unit tests |
+| `make gitleaks` | Detect leaked credentials |
+| `make semgrep` | Run static security checks |
+| `make trivy-sca` | Scan vulnerable dependency fixtures |
+| `make trivy-iac` | Analyze IaC and Dockerfile fixtures |
+| `make trivy-image` | Build and scan the Go image |
+| `make zap` | Run isolated ZAP API scanning |
+| `make opa-test` | Test security policies |
+| `make lab-clean` | Stop known lab containers |
+
+Use `make help` to discover all commands.
+
+Security reports are generated under `reports/` and are not
+committed to Git.
+
+The full end-to-end security pipeline will be introduced
+after scanner evidence and coverage validation are hardened.
