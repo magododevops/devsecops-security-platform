@@ -23,6 +23,11 @@ func NewHandler() http.Handler {
 		workOrderHandler(service),
 	)
 
+	mux.HandleFunc(
+		"PATCH /v1/work-orders/{id}",
+		updateWorkOrderHandler(service),
+	)
+
 	mux.HandleFunc("GET /healthz", healthHandler)
 	mux.HandleFunc("GET /api/echo", echoHandler)
 	mux.HandleFunc("GET /api/items/{id}", itemHandler)

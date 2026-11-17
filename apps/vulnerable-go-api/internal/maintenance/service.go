@@ -64,3 +64,30 @@ func (s *Service) GetWorkOrderWithoutTenantCheck(
 	order, exists := s.orders[id]
 	return order, exists
 }
+
+// UpdateStatus changes only the allowed property after tenant validation.
+func (s *Service) UpdateStatus(
+	ctx context.Context,
+	identity Identity,
+	id string,
+	status string,
+) (WorkOrder, bool) {
+	order, exists := s.GetWorkOrder(ctx, identity, id)
+	if !exists {
+		return WorkOrder{}, false
+	}
+
+	order.Status = status
+	s.orders[id] = order
+	return order, true
+}
+
+// SaveUnrestricted is intentionally unsafe and exists only for the lab.
+// It accepts an entire object without property-level authorization.
+func (s *Service) SaveUnrestricted(
+	id string,
+	order WorkOrder,
+) WorkOrder {
+	s.orders[id] = order
+	return order
+}
